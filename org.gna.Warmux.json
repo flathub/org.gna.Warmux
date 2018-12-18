@@ -121,7 +121,6 @@
             ],
             "post-install": [
                 "install -Dm644 data/icon/warmux.svg -t ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps",
-                "echo ${LD_LIBRARY_PATH}",
                 "for size in 16 24 32 48 64 128 256 512; do
                  LD_LIBRARY_PATH=\"\" rsvg-convert -w $size -h $size -f png -o $size.png ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/warmux.svg
                  install -Dm644 $size.png ${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/warmux.png
