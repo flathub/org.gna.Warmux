@@ -1,7 +1,7 @@
 {
     "app-id": "org.gna.Warmux",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "1.6",
+    "runtime-version": "18.08",
     "sdk": "org.freedesktop.Sdk",
     "finish-args": [
         "--device=dri",
@@ -10,16 +10,17 @@
         "--socket=x11",
         "--socket=pulseaudio"
     ],
-    "command": "warmux", 
-    "rename-appdata-file": "warmux.appdata.xml",   
+    "command": "warmux",
+    "rename-appdata-file": "warmux.appdata.xml",
     "rename-desktop-file": "warmux.desktop",
-    "rename-icon": "warmux_128x128",
+    "rename-icon": "warmux",
     "cleanup": [
         "/include",
         "/lib/pkgconfig",
         "/share/aclocal",
         "/share/man",
-        "*.la", "*.a"
+        "*.la",
+        "*.a"
     ],
     "modules": [
         "shared-modules/SDL/SDL-1.2.15.json",
@@ -31,16 +32,24 @@
         {
             "name": "SDL_gfx",
             "config-opts": [
-		"--disable-static",
-		"--disable-mmx"
-	    ],
-	    "build-options": {
-                "arch" : {
-                    "i386" : {"config-opts" : ["--enable-mmx"]},
-                    "x86_64" : {"config-opts" : ["--enable-mmx"]}
+                "--disable-static",
+                "--disable-mmx"
+            ],
+            "build-options": {
+                "arch": {
+                    "i386": {
+                        "config-opts": [
+                            "--enable-mmx"
+                        ]
+                    },
+                    "x86_64": {
+                        "config-opts": [
+                            "--enable-mmx"
+                        ]
+                    }
                 }
-	    },
-	    "rm-configure": true,
+            },
+            "rm-configure": true,
             "sources": [
                 {
                     "type": "archive",
@@ -50,7 +59,9 @@
                 {
                     "type": "script",
                     "dest-filename": "autogen.sh",
-                    "commands": ["autoreconf -vfi"]
+                    "commands": [
+                        "autoreconf -vfi"
+                    ]
                 }
             ]
         },
@@ -62,7 +73,7 @@
             "sources": [
                 {
                     "type": "archive",
-                    "url": "http://fribidi.org/download/fribidi-0.19.7.tar.bz2",
+                    "url": "https://github.com/fribidi/fribidi/releases/download/0.19.7/fribidi-0.19.7.tar.bz2",
                     "sha256": "08222a6212bbc2276a2d55c3bf370109ae4a35b689acbc66571ad2a670595a8e"
                 }
             ]
@@ -70,7 +81,9 @@
         {
             "name": "warmux",
             "rm-configure": true,
-            "config-opts": ["--enable-fribidi"],
+            "config-opts": [
+                "--enable-fribidi"
+            ],
             "cleanup": [
                 "/bin/warmux-list-games",
                 "/share/applications/warmux_files.desktop"
@@ -84,7 +97,9 @@
                 {
                     "type": "script",
                     "dest-filename": "autogen.sh",
-                    "commands": ["autoreconf -vfi"]
+                    "commands": [
+                        "autoreconf -vfi"
+                    ]
                 },
                 {
                     "type": "patch",
@@ -105,10 +120,12 @@
                 }
             ],
             "post-install": [
-                "mkdir -p /app/share/appdata",
-                "cp warmux.appdata.xml /app/share/appdata",
-                "mkdir -p /app/share/icons/hicolor/128x128/apps",
-                "cp data/icon/warmux_128x128.png /app/share/icons/hicolor/128x128/apps"
+                "install -Dm644 data/icon/warmux.svg -t ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps",
+                "for size in 16 24 32 48 64 128 256 512; do
+                 LD_LIBRARY_PATH=\"\" rsvg-convert -w $size -h $size -f png -o $size.png ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/warmux.svg
+                 install -Dm644 $size.png ${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/warmux.png
+                 done",
+                "install -Dm644 warmux.appdata.xml -t ${FLATPAK_DEST}/share/appdata/"
             ]
         }
     ]

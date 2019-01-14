@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Copyright 2014 Richard Hughes <richard@hughsie.com> -->
-<!--
-SentUpstream: Dead!
--->
-<application>
-  <id type="desktop">warmux.desktop</id>
+<component type="desktop-application">
+  <id>org.gna.Warmux</id>
   <metadata_license>CC0-1.0</metadata_license>
+  <name>Warmux</name>
   <project_license>GPL-2.0+</project_license>
+  <summary>A 2D game where funny characters launch funny weapons</summary>
   <description>
     <p>
       WarMUX is a free and open-source turn-based game and can be played online
@@ -18,13 +17,31 @@ SentUpstream: Dead!
       baseball bats, and bazookas.
     </p>
   </description>
-  <url type="homepage">http://sourceforge.net/projects/warmux/</url>
+  <url type="homepage">https://web.archive.org/web/20120526052621/http://www.wormux.org:80/phpboost/news/news.php</url>
   <screenshots>
-    <screenshot type="default">http://a.fsdn.com/con/app/proj/warmux.mirror/screenshots/Warmux.jpg</screenshot>
-    <screenshot>http://a.fsdn.com/con/app/proj/warmux.mirror/screenshots/warmux.png</screenshot>
-    <screenshot>http://a.fsdn.com/con/app/proj/warmux.mirror/screenshots/Warmux1.png</screenshot>
+    <screenshot type="default">
+      <image type="source">https://raw.githubusercontent.com/yeKcim/warmux/master/screenshots/warmux_end__A.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/yeKcim/warmux/master/screenshots/warmux_end__B.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/yeKcim/warmux/master/screenshots/warmux11.01.png</image>
+    </screenshot>
+    <screenshot>
+      <image type="source">https://raw.githubusercontent.com/yeKcim/warmux/master/screenshots/warmux%2011.04%20characters.png</image>
+    </screenshot>
   </screenshots>
-  <!-- FIXME: change this to an upstream email address for spec updates
-  <updatecontact>someone_who_cares@upstream_project.org</updatecontact>
-   -->
-</application>
+  <launchable type="desktop-id">org.gna.Warmux.desktop</launchable>
+  <releases>
+    <release version="11.04.1" date="2011-04-30"/>
+  </releases>
+  <developer_name>Lawrence Azzoug Moy &amp; the Wormux community</developer_name>
+  <update_contact>sakcheen+flathub_AT_gmail.com</update_contact>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence-cartoon">intense</content_attribute>
+    <content_attribute id="violence-bloodshed">intense</content_attribute>
+    <content_attribute id="drugs-narcotics">mild</content_attribute>
+    <content_attribute id="language-humor">mild</content_attribute>
+  </content_rating>
+</component>
