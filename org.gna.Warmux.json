@@ -1,8 +1,12 @@
 {
     "app-id": "org.gna.Warmux",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "23.08",
+    "runtime-version": "24.08",
     "sdk": "org.freedesktop.Sdk",
+    "command": "warmux",
+    "rename-appdata-file": "warmux.appdata.xml",
+    "rename-desktop-file": "warmux.desktop",
+    "rename-icon": "warmux",
     "finish-args": [
         "--device=dri",
         "--share=ipc",
@@ -10,10 +14,6 @@
         "--socket=x11",
         "--socket=pulseaudio"
     ],
-    "command": "warmux",
-    "rename-appdata-file": "warmux.appdata.xml",
-    "rename-desktop-file": "warmux.desktop",
-    "rename-icon": "warmux",
     "cleanup": [
         "/include",
         "/lib/pkgconfig",
@@ -121,10 +121,6 @@
             ],
             "post-install": [
                 "install -Dm644 data/icon/warmux.svg -t ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps",
-                "for size in 16 24 32 48 64 128 256 512; do
-                 LD_LIBRARY_PATH=\"\" rsvg-convert -w $size -h $size -f png -o $size.png ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/warmux.svg
-                 install -Dm644 $size.png ${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/warmux.png
-                 done",
                 "install -Dm644 warmux.appdata.xml -t ${FLATPAK_DEST}/share/appdata/"
             ]
         }
