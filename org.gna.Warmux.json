@@ -1,7 +1,7 @@
 {
     "app-id": "org.gna.Warmux",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "23.08",
+    "runtime-version": "25.08",
     "sdk": "org.freedesktop.Sdk",
     "finish-args": [
         "--device=dri",
@@ -11,7 +11,6 @@
         "--socket=pulseaudio"
     ],
     "command": "warmux",
-    "rename-appdata-file": "warmux.appdata.xml",
     "rename-desktop-file": "warmux.desktop",
     "rename-icon": "warmux",
     "cleanup": [
@@ -37,11 +36,6 @@
             ],
             "build-options": {
                 "arch": {
-                    "i386": {
-                        "config-opts": [
-                            "--enable-mmx"
-                        ]
-                    },
                     "x86_64": {
                         "config-opts": [
                             "--enable-mmx"
@@ -66,21 +60,7 @@
             ]
         },
         {
-            "name": "fribidi",
-            "cleanup": [
-                "/bin"
-            ],
-            "sources": [
-                {
-                    "type": "archive",
-                    "url": "https://github.com/fribidi/fribidi/releases/download/0.19.7/fribidi-0.19.7.tar.bz2",
-                    "sha256": "08222a6212bbc2276a2d55c3bf370109ae4a35b689acbc66571ad2a670595a8e"
-                }
-            ]
-        },
-        {
             "name": "warmux",
-            "rm-configure": true,
             "config-opts": [
                 "--enable-fribidi"
             ],
@@ -93,13 +73,6 @@
                     "type": "archive",
                     "url": "http://pkgs.fedoraproject.org/repo/pkgs/warmux/warmux-11.04.1.tar.bz2/26ff65c43a9bb61a3f0529c98b943e35/warmux-11.04.1.tar.bz2",
                     "sha256": "789c4f353e4c5ce0a2aba2e82861d3fd0e5218bc76d8da1a332f2c7b1b27e4ee"
-                },
-                {
-                    "type": "script",
-                    "dest-filename": "autogen.sh",
-                    "commands": [
-                        "autoreconf -vfi"
-                    ]
                 },
                 {
                     "type": "patch",
@@ -117,15 +90,18 @@
                 {
                     "type": "file",
                     "path": "warmux.appdata.xml"
+                },
+                {
+                    "type": "shell",
+                    "commands": [
+                        "cp /usr/share/automake-*/config.{guess,sub} ."
+                    ]
                 }
             ],
             "post-install": [
                 "install -Dm644 data/icon/warmux.svg -t ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps",
-                "for size in 16 24 32 48 64 128 256 512; do
-                 LD_LIBRARY_PATH=\"\" rsvg-convert -w $size -h $size -f png -o $size.png ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps/warmux.svg
-                 install -Dm644 $size.png ${FLATPAK_DEST}/share/icons/hicolor/${size}x${size}/apps/warmux.png
-                 done",
-                "install -Dm644 warmux.appdata.xml -t ${FLATPAK_DEST}/share/appdata/"
+		"install -Dm644 ${FLATPAK_DEST}/share/pixmaps/warmux_128x128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/warmux.png",
+                "install -Dm644 warmux.appdata.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml"
             ]
         }
     ]
