@@ -1,8 +1,11 @@
 {
     "app-id": "org.gna.Warmux",
     "runtime": "org.freedesktop.Platform",
-    "runtime-version": "25.08",
+    "runtime-version": "26.08",
     "sdk": "org.freedesktop.Sdk",
+    "command": "warmux",
+    "rename-desktop-file": "warmux.desktop",
+    "rename-icon": "warmux",
     "finish-args": [
         "--device=dri",
         "--share=ipc",
@@ -10,9 +13,6 @@
         "--socket=x11",
         "--socket=pulseaudio"
     ],
-    "command": "warmux",
-    "rename-desktop-file": "warmux.desktop",
-    "rename-icon": "warmux",
     "cleanup": [
         "/include",
         "/lib/pkgconfig",
@@ -64,6 +64,11 @@
             "config-opts": [
                 "--enable-fribidi"
             ],
+            "post-install": [
+                "install -Dm644 data/icon/warmux.svg -t ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps",
+                "install -Dm644 ${FLATPAK_DEST}/share/pixmaps/warmux_128x128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/warmux.png",
+                "install -Dm644 warmux.appdata.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml"
+            ],
             "cleanup": [
                 "/bin/warmux-list-games",
                 "/share/applications/warmux_files.desktop"
@@ -97,11 +102,6 @@
                         "cp /usr/share/automake-*/config.{guess,sub} ."
                     ]
                 }
-            ],
-            "post-install": [
-                "install -Dm644 data/icon/warmux.svg -t ${FLATPAK_DEST}/share/icons/hicolor/scalable/apps",
-		"install -Dm644 ${FLATPAK_DEST}/share/pixmaps/warmux_128x128.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/warmux.png",
-                "install -Dm644 warmux.appdata.xml ${FLATPAK_DEST}/share/metainfo/${FLATPAK_ID}.metainfo.xml"
             ]
         }
     ]
